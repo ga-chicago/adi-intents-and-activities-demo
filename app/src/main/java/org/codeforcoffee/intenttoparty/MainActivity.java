@@ -11,6 +11,7 @@ import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Button;
+import android.widget.TextView;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -22,7 +23,23 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         Button btnNext = (Button) findViewById(R.id.btn_next);
+        TextView txtHiThere = (TextView) findViewById(R.id.txt_hithere);
+
         mIntentToParty = new Intent(MainActivity.this, SecondActivity.class);
+        mIntentToParty.putExtra("NAME", "James");
+        mIntentToParty.putExtra("AGE", 32);
+
+        Intent fromSecondActivity = getIntent();
+        if (fromSecondActivity != null) {
+            String msgFromPartyActivity;
+            try {
+                msgFromPartyActivity = fromSecondActivity.getStringExtra("MSG");
+                txtHiThere.setText(msgFromPartyActivity);
+            } catch (Exception ex) {
+                ex.printStackTrace();
+            }
+        }
+
 
         View.OnClickListener listener = new View.OnClickListener() {
             @Override
